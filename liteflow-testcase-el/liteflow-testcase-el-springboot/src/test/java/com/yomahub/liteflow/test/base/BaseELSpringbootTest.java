@@ -27,6 +27,16 @@ public class BaseELSpringbootTest extends BaseTest {
 	private FlowExecutor flowExecutor;
 
 	// 最简单的情况
+
+	/**
+	 * THEN(a,b,WHEN(c,d));
+	 * 底层源码为：在 flowExecutor.execute2Resp 中先获取chain，然后chain.execute。
+	 * 而chain的execute则是循环调用conditionList中每个condition的execute方法
+	 * 一开始是一个ThenCondition，它由两个Node和一个WhenCondition组成，我们先调用ThenCondition的方法，即调用Executable#execute方法
+	 * Node的execute方法即借助nodeExecutor来调用instance的execute()方法
+	 * 而上面的ThenCondition的最后一个Executable是whenCondition，而WhenCondition则是并行调用两个Node。
+	 * 最后整个流程结束
+	 */
 	@Test
 	public void testBase1() throws Exception {
 		LiteflowResponse response = flowExecutor.execute2Resp("chain1", "arg");

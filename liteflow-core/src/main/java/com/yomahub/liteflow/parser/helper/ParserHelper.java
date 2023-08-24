@@ -146,6 +146,7 @@ public class ParserHelper {
 					throw new ChainDuplicateException(String.format("[chain name duplicate] chainName=%s", chainName));
 				}
 
+				// 这里只是向 FlowBus 的chainMap中放一个空壳子
 				FlowBus.addChain(chainName);
 			});
 		});
@@ -156,6 +157,7 @@ public class ParserHelper {
 		for (Document document : documentList) {
 			Element rootElement = document.getRootElement();
 			List<Element> chainList = rootElement.elements(CHAIN);
+			// 解析每一个chain
 			chainList.forEach(parseOneChainConsumer);
 		}
 	}

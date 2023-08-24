@@ -138,6 +138,7 @@ public class LiteFlowChainELBuilder {
 			// 解析el成为一个Condition
 			// 为什么这里只是一个Condition，而不是一个List<Condition>呢
 			// 这里无论多复杂的，外面必定有一个最外层的Condition，所以这里只有一个，内部可以嵌套很多层，这点和以前的不太一样
+			// 最核心的方法
 			Condition condition = (Condition) EXPRESS_RUNNER.execute(elStr, context, errorList, true, true);
 
 			// 把主要的condition加入
